@@ -1,0 +1,35 @@
+# ==================== 全局默认配置 ====================
+global:
+  author: fjtcmd
+  packageName: com.fjtcmd.hub.demo
+  autoRemovePre: true
+  tablePrefix: sys_
+  tplCategory: crud
+  tplWebType: element-plus-typescript
+  formColNum: 2
+  parentMenuId: 2006
+  genView: true
+  output: generate/demo/student/output
+  allowOverwrite: true
+
+# ==================== 表级配置 ====================
+tables:
+  sys_student:
+    functionName: 学生信息
+    columns:
+      student_name:
+        queryType: LIKE
+        isRequired: true
+      student_sex:
+        htmlType: select
+        dictType: sys_user_sex
+      student_age:
+        isQuery: false
+      student_birthday:
+        queryType: BETWEEN
+      student_phone:
+        queryType: EQ
+      status:
+        htmlType: radio
+        dictType: sys_normal_disable
+        isRequired: true

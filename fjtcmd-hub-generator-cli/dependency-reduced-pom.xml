@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>fjtcmd-hub</artifactId>
+    <groupId>com.fjtcmd.hub</groupId>
+    <version>3.9.2</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>fjtcmd-hub-generator-cli</artifactId>
+  <name>fjtcmd-hub-generator-cli</name>
+  <description>体彩门店智慧互动信息 代码生成 CLI 工具 - 复用 generator 模块，独立运行，无需数据库连接</description>
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>${maven-shade-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer>
+                  <mainClass>com.fjtcmd.hub.generator.cli.GeneratorCli</mainClass>
+                </transformer>
+              </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <properties>
+    <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+    <druid.version>1.2.28</druid.version>
+  </properties>
+</project>

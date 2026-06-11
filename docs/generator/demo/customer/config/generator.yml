@@ -1,0 +1,105 @@
+# ============================================
+# 客户-商品 主子表示例（独立页面模式）
+# ============================================
+# 用法：
+#   java -jar fjtcmd-hub-generator-cli.jar \
+#     --config docs/generator/demo/customer/config/generator.yml \
+#     --sql docs/generator/demo/customer/config/create_customer.sql \
+#     --output docs/generator/demo/customer/output
+
+global:
+  author: lihd
+  packageName: com.fjtcmd.hub.demo
+  autoRemovePre: true
+  tablePrefix: sys_
+  tplCategory: crud           # 使用 crud 模板，通过 hasSubTable/isSubTable 控制主子表行为
+  tplWebType: element-plus-typescript
+  formColNum: 2
+  parentMenuId: 2006
+  genView: true
+  output: docs/generator/demo/customer/output
+  allowOverwrite: true
+
+tables:
+  # ========== 主表：客户 ==========
+  sys_customer:
+    functionName: 客户信息
+    orderNum: 1
+    parentMenuId: 2006
+    hasSubTable: true           # 标记有子表
+    subTable:
+      className: Goods          # 子表类名
+      businessName: goods       # 子表业务名
+      subRoute: customer-goods  # 子表路由路径
+      functionName: 商品        # 子表功能名
+      fkName: customer_id       # 外键列名
+      fkJavaField: customerId   # 外键Java字段名
+      permissionPrefix: goods   # 子表权限前缀
+    columns:
+      # 客户id — 主键，列表展示，非必填
+      customer_id:
+        isList: true
+        isQuery: false
+        isRequired: false
+      # 客户姓名 — 模糊查询
+      customer_name:
+        queryType: LIKE
+      # 手机号码 — 模糊查询
+      phonenumber:
+        queryType: LIKE
+      # 客户性别 — 使用系统内置字典
+      sex:
+        htmlType: select
+        dictType: sys_user_sex
+      # 客户生日 — 范围查询
+      birthday:
+        queryType: BETWEEN
+      # 客户描述 — 不在列表展示
+      remark:
+        isList: false
+        isQuery: false
+
+  # ========== 子表：商品 ==========
+  sys_goods:
+    functionName: 商品信息
+    orderNum: 2
+    parentMenuId: 2006
+    isSubTable: true            # 标记为子表
+    mainTable:
+      className: Customer       # 主表类名
+      businessName: customer    # 主表业务名
+      tableName: sys_customer   # 主表表名
+      functionName: 客户        # 主表功能名
+      pkJavaField: customerId   # 主表主键字段
+      nameJavaField: customerName # 主表名称字段
+      fkJavaField: customerId   # 外键字段名（子表关联主表的字段）
+    columns:
+      # 商品id — 主键，列表展示，非必填
+      goods_id:
+        isList: true
+        isQuery: false
+        isRequired: false
+      # 客户id — 外键，不在列表展示
+      customer_id:
+        isList: false
+        isQuery: false
+      # 商品名称 — 模糊查询
+      name:
+        queryType: LIKE
+      # 商品重量 — 使用 Long 类型，不搜索
+      weight:
+        javaType: Long
+        isQuery: false
+      # 商品价格 — 使用 BigDecimal，不搜索
+      price:
+        javaType: BigDecimal
+        isQuery: false
+      # 商品时间 — 范围查询
+      date:
+        htmlType: datetime
+        queryType: BETWEEN
+      # 商品种类 — 使用自定义字典
+      type:
+        columnComment: 商品种类（0食品 1日用品 2电子产品 3其他）
+        htmlType: select
+        dictType: biz_goods_type

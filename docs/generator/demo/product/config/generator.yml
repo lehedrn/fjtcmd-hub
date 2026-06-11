@@ -1,0 +1,53 @@
+# ============================================
+# 产品管理 - 树表 CRUD 示例
+# ============================================
+# 用法：
+#   java -jar fjtcmd-hub-generator-cli.jar \
+#     --config docs/generator/demo/product/config/generator.yml \
+#     --sql docs/generator/demo/product/config/create_product.sql \
+#     --output docs/generator/demo/product/output
+
+global:
+  author: lihd
+  packageName: com.fjtcmd.hub.demo
+  autoRemovePre: true
+  tablePrefix: sys_
+  tplCategory: tree
+  tplWebType: element-plus-typescript
+  formColNum: 1
+  parentMenuId: 2006
+  genView: true
+  output: docs/generator/demo/product/output
+  allowOverwrite: true
+
+tables:
+  sys_product:
+    functionName: 产品信息
+    # 树表配置
+    treeCode: product_id
+    treeParentCode: parent_id
+    treeName: product_name
+    columns:
+      # 产品id — 主键，不在列表展示，非必填
+      product_id:
+        isList: false
+        isQuery: false
+        isRequired: false
+      # 父产品id — 树表父节点字段，不在列表展示，必填
+      parent_id:
+        isList: false
+        isQuery: false
+        isRequired: true
+      # 祖级列表 — 树表祖先路径，不在列表展示
+      ancestors:
+        isList: false
+        isQuery: false
+      # 产品名称 — 模糊查询，必填
+      product_name:
+        queryType: LIKE
+        isRequired: true
+      # 产品状态 — 使用系统内置字典，下拉框，必填
+      status:
+        htmlType: select
+        dictType: sys_normal_disable
+        isRequired: true

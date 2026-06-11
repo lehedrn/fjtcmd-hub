@@ -1,0 +1,64 @@
+# ============================================
+# fjtcmd-hub 代码生成 CLI 工具 - 配置文件
+# ============================================
+# 用法:
+#   java -jar fjtcmd-hub-generator-cli-1.0.0.jar \
+#     --config config/generator.yml \
+#     --sql sql/create_product.sql \
+#     --output ./generated
+#
+# 配置分为两层：
+#   global  — 全局默认配置（适用于所有表）
+#   tables  — 表级/列级覆盖（只写要覆盖的字段）
+
+# ==================== 全局默认配置 ====================
+global:
+  # 作者署名
+  author: ztq
+
+  # 生成包路径
+  packageName: com.fjtcmd.hub.biz
+
+  # 自动去除表前缀（true / false）
+  autoRemovePre: true
+
+  # 表前缀（多个用逗号分隔，仅在 autoRemovePre=true 时生效）
+  tablePrefix: sys_
+
+  # 模板类型: crud（单表）/ tree（树表）/ sub（主子表）
+  tplCategory: crud
+
+  # 前端类型: element-plus（JS）/ element-plus-typescript（TS）
+  tplWebType: element-plus-typescript
+
+  # 表单列数: 1=单列, 2=双列, 3=三列
+  formColNum: 2
+
+  # 上级菜单ID（系统管理=1, 系统监控=2, 系统工具=3）
+  parentMenuId: 1
+
+  # 是否生成详情页（true / false）
+  genView: false
+
+  # 输出目录（可被命令行 --output 覆盖）
+  output: ./generated
+
+  # 允许覆盖已存在的文件（true / false）
+  allowOverwrite: false
+
+# ==================== 表级 / 列级配置 ====================
+# 按表名配置，覆盖全局默认。只写要覆盖的字段，其余走自动推断。
+#
+# tables:
+#   sys_student:
+#     functionName: 学生信息           # 功能名
+#     genView: true                    # 开启详情页
+#     columns:
+#       student_hobby:                 # 按列名索引
+#         htmlType: checkbox           # 显示类型
+#         dictType: biz_student_hobby  # 字典类型
+#       student_sex:
+#         htmlType: select
+#         dictType: sys_user_sex
+#       student_birthday:
+#         queryType: BETWEEN           # 查询方式: EQ/LIKE/BETWEEN/...

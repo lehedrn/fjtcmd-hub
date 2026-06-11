@@ -1,0 +1,48 @@
+# ============================================
+# 学生信息管理 - 单表 CRUD 示例
+# ============================================
+# 用法：
+#   java -jar fjtcmd-hub-generator-cli.jar \
+#     --config docs/generator/demo/student/config/generator.yml \
+#     --sql docs/generator/demo/student/config/create_student.sql \
+#     --output docs/generator/demo/student/output
+
+global:
+  author: lihd
+  packageName: com.fjtcmd.hub.demo
+  autoRemovePre: true
+  tablePrefix: sys_
+  tplCategory: crud
+  tplWebType: element-plus-typescript
+  formColNum: 1
+  parentMenuId: 2006
+  genView: true
+  output: docs/generator/demo/student/output
+  allowOverwrite: true
+
+tables:
+  sys_student:
+    functionName: 学生信息
+    columns:
+      student_name:
+        queryType: LIKE
+        isRequired: true
+      # 爱好 — 复选框，使用自定义字典
+      student_hobby:
+        htmlType: checkbox
+        dictType: biz_student_hobby
+        isQuery: false
+      # 性别 — 下拉框，使用系统内置字典
+      student_sex:
+        htmlType: select
+        dictType: sys_user_sex
+      # 状态 — 单选框，使用系统内置字典
+      student_status:
+        htmlType: radio
+        dictType: sys_normal_disable
+        isRequired: true
+      # 生日 — 范围查询
+      student_birthday:
+        queryType: BETWEEN
+      student_age:
+        isQuery: false
