@@ -1,6 +1,6 @@
 {
-  "_comment": "settings.local.json 配置示例 - Record History Hook",
-  "_usage": "将此配置合并到你的 .claude/settings.local.json 中",
+  "_comment": "settings.local.json 配置示例",
+  "_usage": "安装脚本会自动创建此配置，如需手动配置请参考",
 
   "permissions": {
     "allow": [
