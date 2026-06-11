@@ -1,0 +1,24 @@
+{
+  "_comment": "settings.local.json 配置示例 - Record History Hook",
+  "_usage": "将此配置合并到你的 .claude/settings.local.json 中",
+
+  "permissions": {
+    "allow": [
+      "Bash(node .claude/hooks/record-history.js)"
+    ]
+  },
+
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/record-history.js"
+          }
+        ]
+      }
+    ]
+  }
+}
