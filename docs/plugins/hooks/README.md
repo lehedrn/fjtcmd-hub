@@ -1,39 +1,23 @@
 # Claude Code Hooks
 
-Claude Code Hook 插件集合。每个插件有独立的子目录。
+Hook 插件集合。Hook 是在特定时机自动执行的脚本。
 
-## 可用插件
+## 可用 Hooks
 
-| 插件 | 说明 | 目录 |
-|------|------|------|
-| record-history | 自动记录对话历史 | [record-history/](./record-history/) |
+| 插件 | 说明 | 触发时机 | 安装 |
+|------|------|---------|------|
+| [record-history](./record-history/) | 自动记录对话历史 | `Stop` | `bash record-history/install.sh` |
 
-## 安装插件
-
-进入对应插件目录，查看 README 了解安装方式：
+## 安装方式
 
 ```bash
-# 示例：安装 record-history
-cd docs/plugins/hooks/record-history
-
-# Linux/macOS
-bash install.sh
-
-# Windows
-install.bat
+# 进入具体插件目录查看安装说明
+cd docs/plugins/hooks/{plugin-name}
+cat README.md
 ```
 
-## 目录结构
+## 添加新 Hook
 
-```
-docs/plugins/hooks/
-├── README.md                    # 本文件
-└── record-history/              # Record History 插件
-    ├── README.md                # 插件说明
-    ├── install.sh               # Linux/macOS 安装脚本
-    ├── install.bat              # Windows 安装脚本
-    ├── uninstall.sh             # Linux/macOS 卸载脚本
-    ├── uninstall.bat            # Windows 卸载脚本
-    └── assets/
-        └── record-history.js    # Hook 脚本
-```
+1. 创建子目录 `docs/plugins/hooks/{hook-name}/`
+2. 添加 README.md、install.sh、install.bat 等
+3. 更新本文件的"可用 Hooks"表格
