@@ -73,7 +73,8 @@ echo ""
 echo "[2/3] 配置 settings.local.json..."
 
 SETTINGS_FILE="$PROJECT_ROOT/.claude/settings.local.json"
-HOOK_COMMAND="node .claude/hooks/record-history.js"
+HOOK_SCRIPT="$PROJECT_ROOT/.claude/hooks/record-history.js"
+HOOK_COMMAND="node $HOOK_SCRIPT"
 
 if [ -f "$SETTINGS_FILE" ]; then
     if grep -q 'record-history.js' "$SETTINGS_FILE"; then

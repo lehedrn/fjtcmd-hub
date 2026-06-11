@@ -14,6 +14,10 @@ echo.
 set SCRIPT_DIR=%~dp0
 set PROJECT_ROOT=%SCRIPT_DIR%\..\..\..\..
 
+:: 转换为绝对路径
+for %%i in ("%PROJECT_ROOT%") do set PROJECT_ROOT_ABS=%%~fi
+set PROJECT_ROOT=%PROJECT_ROOT_ABS%
+
 :: 获取用户名
 call :get_username
 
@@ -43,7 +47,8 @@ echo.
 echo [2/3] 配置 settings.local.json...
 
 set SETTINGS_FILE=%PROJECT_ROOT%\.claude\settings.local.json
-set HOOK_COMMAND=node .claude/hooks/record-history.js
+set HOOK_SCRIPT=%PROJECT_ROOT%\.claude\hooks\record-history.js
+set HOOK_COMMAND=node %HOOK_SCRIPT%
 
 if exist "%SETTINGS_FILE%" (
     findstr "record-history.js" "%SETTINGS_FILE%" >nul
