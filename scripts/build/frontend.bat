@@ -7,7 +7,6 @@ setlocal
 
 set PROJECT_HOME=%~dp0..\..
 set UI_DIR=%PROJECT_HOME%\fjtcmd-hub-ui
-cd /d "%UI_DIR%"
 
 :: 处理命令
 if "%1"=="install" goto :install
@@ -21,7 +20,7 @@ goto :usage
 :install
 call :check_pnpm
 echo [INFO] 安装前端依赖...
-pnpm install
+pnpm --prefix "%UI_DIR%" install
 if %errorlevel% equ 0 (
     echo [INFO] 操作成功: install
 ) else (
@@ -33,7 +32,7 @@ exit /b 0
 :build_prod
 call :check_pnpm
 echo [INFO] 执行生产环境打包...
-pnpm run build:prod
+pnpm --prefix "%UI_DIR%" run build:prod
 if %errorlevel% equ 0 (
     echo [INFO] 构建产物: fjtcmd-hub-ui\dist\
     echo [INFO] 操作成功: build:prod
@@ -46,7 +45,7 @@ exit /b 0
 :build_stage
 call :check_pnpm
 echo [INFO] 执行预发布环境打包...
-pnpm run build:stage
+pnpm --prefix "%UI_DIR%" run build:stage
 if %errorlevel% equ 0 (
     echo [INFO] 构建产物: fjtcmd-hub-ui\dist\
     echo [INFO] 操作成功: build:stage
@@ -68,7 +67,7 @@ call :check_pnpm
 echo [INFO] 清理并重新安装依赖...
 if exist "%UI_DIR%\node_modules" rmdir /s /q "%UI_DIR%\node_modules"
 if exist "%UI_DIR%\dist" rmdir /s /q "%UI_DIR%\dist"
-pnpm install
+pnpm --prefix "%UI_DIR%" install
 if %errorlevel% equ 0 (
     echo [INFO] 操作成功: clean-install
 ) else (

@@ -37,6 +37,7 @@ for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":%SERVER_PORT%" ^| findstr "
 )
 set PORT_PID=
 
+:port_found
 if defined PORT_PID (
     echo [WARN] 端口 %SERVER_PORT% 已被占用 ^(PID: %PORT_PID%^)，先停止旧进程...
     taskkill /PID %PORT_PID% >nul 2>&1
